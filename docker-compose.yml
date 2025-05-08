@@ -1,0 +1,22 @@
+services:
+  db:
+    image: postgres:17.2-bullseye
+    container_name: postgres_prisma
+    env_file: .env
+    restart: always
+    environment:
+      POSTGRES_DB: ${POSTGRES_DATABASE}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    ports:
+      - '5432:5432'
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+    networks:
+      - network_user
+
+networks:
+  network_user:
+    driver: bridge
+volumes:
+  pg_data:
